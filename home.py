@@ -1,11 +1,18 @@
 from flask import Flask, render_template, request
-import firebase_admin
 from firebase_admin import db
+import firebase_admin
+import boto3
 
 app = Flask(__name__)
 
+PERMISSIONS_BUCKET = 'sports-tweeter-permissions'
+TIME_LIMIT_IN_MILLIS = 75000
+
+s3 = boto3.client('s3')
+
 def initialize_db():
-    cert = firebase_admin.credentials.Certificate("sports-tweeter-strat-c141d-firebase-adminsdk-ci2eq-3c60f98ce1.json")
+    s3_cert = s3.get_object(Bucket=PERMISSIONS_BUCKET, Key="sports-tweeter-strat-c141d-firebase-adminsdk-ci2eq-3c60f98ce1.json")
+    cert = firebase_admin.credentials.Certificate(se_cert)
     default_app = firebase_admin.initialize_app(cert, {'databaseURL':"https://sports-tweeter-strat-c141d-default-rtdb.firebaseio.com/"})
 
 
