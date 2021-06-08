@@ -12,7 +12,7 @@ s3 = boto3.client('s3')
 
 def initialize_db():
     s3_cert = s3.get_object(Bucket=PERMISSIONS_BUCKET, Key="sports-tweeter-strat-c141d-firebase-adminsdk-ci2eq-3c60f98ce1.json")
-    cert = firebase_admin.credentials.Certificate(se_cert)
+    cert = firebase_admin.credentials.Certificate(s3_cert)
     default_app = firebase_admin.initialize_app(cert, {'databaseURL':"https://sports-tweeter-strat-c141d-default-rtdb.firebaseio.com/"})
 
 
